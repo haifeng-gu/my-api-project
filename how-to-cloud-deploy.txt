@@ -1,0 +1,14 @@
+Step 1: create cluster in GKE
+Step 2: Deploy pods
+    In GKE workloads, click "deploy"
+        - select container image
+        - set environment variables (if any; this replaces .env)
+    Check logs:
+        - kubectl logs my-ui-c494d79c6-l829j
+
+step 3: deploy service
+    - From deployments/workloads, select expose service
+    - select port mapping: target port: 5000
+
+Step 4: test the application:
+    - http://104.197.19.10:5000/api/issues
