@@ -1,6 +1,6 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/nimble-charmer-336120/my-api-project', '.' ]
+  args: [ 'build', '-t', 'gcr.io/nimble-charmer-336120/my-api-project:latest', '.' ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/nimble-charmer-336120/my-api-project' ]
 - id: depoly
