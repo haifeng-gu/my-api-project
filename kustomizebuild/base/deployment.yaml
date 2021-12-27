@@ -100,3 +100,4 @@ spec:
         - image: gcr.io/nimble-charmer-336120/github.com/haifeng-gu/my-api-project
           imagePullPolicy: IfNotPresent
           name: my-api-project-sha256-1
+          
