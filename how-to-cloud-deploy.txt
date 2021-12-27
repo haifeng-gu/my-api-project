@@ -1,3 +1,4 @@
+1. Manual deployment
 Step 1: create cluster in GKE
 Step 2: Deploy pods
     In GKE workloads, click "deploy"
@@ -12,3 +13,8 @@ step 3: deploy service
 
 Step 4: test the application:
     - http://104.197.19.10:5000/api/issues
+
+2. Auto deployment
+    Step 1: in workloads, click the my-api deployment
+    Step 2: in actions menu, choose automated deployment
+    Step 3: you can find the trigger in Cloud Build, and run the trigger
