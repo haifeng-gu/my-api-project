@@ -3,3 +3,6 @@ steps:
   args: [ 'build', '-t', 'gcr.io/nimble-charmer-336120/my-api-project', '.' ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/nimble-charmer-336120/my-api-project' ]
+- id: depoly
+  name: 'gcr.io/$PROJECT_ID/kustomize'
+  args: [ 'build', 'overlays/dev' ]
