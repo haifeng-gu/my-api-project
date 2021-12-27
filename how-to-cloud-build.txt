@@ -1,3 +1,5 @@
+1. How to use local gcp shell to run build
+
 Step 1: create DockerFile, .dockerignore file, and .gcloudignore
     Docker file format:
         FROM node:16.13.1
@@ -16,7 +18,7 @@ Step 1: create DockerFile, .dockerignore file, and .gcloudignore
         #!include:.gitignore
         #!include:.dockerignore
 
-Step 2: create GKE project, and enable Container Registery Api
+Step 2: create GKE project, and enable Cloud Build API and Container Registery Api
     
 Step 3: create cloudbuild.yaml
     Format:
@@ -41,3 +43,7 @@ Step 5: run cloud build
 
 
 
+2. How to connect to github to run build
+Step 1: in cloud build page, create a trigger (in this example, we use manaul invoke)
+Step 2: run build for the trigger 
+Step 3: in cloud build / history, view the build log (click the build)
