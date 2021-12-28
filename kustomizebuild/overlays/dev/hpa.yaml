@@ -7,7 +7,7 @@ metadata:
   name: my-api-hpa-nrpz
   namespace: default
 spec:
-  maxReplicas: 6
+  maxReplicas: 7
   metrics:
     - resource:
         name: cpu
