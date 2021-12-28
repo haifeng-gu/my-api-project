@@ -8,10 +8,10 @@ steps:
 - name: 'gcr.io/$PROJECT_ID/kustomize'
   args:
   - 'build'
-  - 'kustomizebuild/overlays/production'
+  - 'kustomizebuild/overlays/dev'
   env:
     - 'APPLY=true'
-    - 'CLOUDSDK_COMPUTE_ZONE=$_ZONE'
+    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
     - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
     - 'GCLOUD_PROJECT=$PROJECT_ID'
 
