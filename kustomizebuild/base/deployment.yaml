@@ -97,6 +97,6 @@ spec:
         app: my-api
     spec:
       containers:
-        - image: gcr.io/nimble-charmer-336120/github.com/haifeng-gu/my-api-project
+        - image: gcr.io/nimble-charmer-336120/my-api-project
           imagePullPolicy: Always 
           name: my-api-project-sha256-1
