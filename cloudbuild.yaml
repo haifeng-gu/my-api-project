@@ -1,10 +1,17 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/nimble-charmer-336120/my-api-project:latest', '.' ]
+
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/nimble-charmer-336120/my-api-project' ]
-- id: deploy
-  name: 'gcr.io/$PROJECT_ID/kustomize'
-  args: [ 'build', 'kustomizebuild/overlays/dev' ]
+
+- name: 'gcr.io/$PROJECT_ID/kustomize'
+  args:
+  - 'build'
+  - 'kustomizebuild/overlays/production'
   env:
     - 'APPLY=true'
+    - 'CLOUDSDK_COMPUTE_ZONE=$_ZONE'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+    - 'GCLOUD_PROJECT=$PROJECT_ID'
+
