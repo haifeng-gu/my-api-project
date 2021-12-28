@@ -14,7 +14,14 @@ step 3: deploy service
 Step 4: test the application:
     - http://104.197.19.10:5000/api/issues
 
-2. Auto deployment
+2. Auto deployment trigger
     Step 1: in workloads, click the my-api deployment
     Step 2: in actions menu, choose automated deployment
     Step 3: you can find the trigger in Cloud Build, and run the trigger
+
+3. Use Kustomize to generate deployment-dev.yaml
+    Step 1: create a kustomize build folder: kustomizebuild
+    Step 2: in google cloud SDK run : (you can get the string from "connect to cluster" in the cluster console )
+             gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project nimble-charmer-336120
+    Step 3: generate cloudbuild.yaml
+            kubectl kustomize ./kustomizebuild/overlays/dev > deployment-dev.yaml
