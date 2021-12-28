@@ -5,16 +5,12 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/nimble-charmer-336120/my-api-project' ]
 
-
-- id: deploy
-  name: 'gcr.io/$PROJECT_ID/kustomize'
-  entrypoint: bash
+- name: 'gcr.io/$PROJECT_ID/kustomize'
   args:
-  - '-c'
-  - |
-    gcloud container clusters get-credentials --zone "$$CLOUDSDK_COMPUTE_ZONE" "$$CLOUDSDK_CONTAINER_CLUSTER"
-    kustomize build "kustomizebuild/overlays/dev" | kubectl apply -f -
+  - 'build'
+  - 'kustomizebuild/overlays/dev'
   env:
+    - 'APPLY=true'
     - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
     - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
     - 'GCLOUD_PROJECT=$PROJECT_ID'
