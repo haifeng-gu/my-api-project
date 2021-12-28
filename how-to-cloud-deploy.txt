@@ -1,34 +1,43 @@
-1. Manual deployment using GCP console
-Step 1: create cluster in GKE
-Step 2: Deploy pods
-    In GKE workloads, click "deploy"
-        - select container image
-        - set environment variables (if any; this replaces .env)
-    Check logs:
-        - kubectl logs my-api-c494d79c6-l829j
+Option 1. Manual deployment using GCP console
+    Step 1: create cluster in GKE
+    Step 2: Deploy pods
+        In GKE workloads, click "deploy"
+            - select container image
+            - set environment variables (if any; this replaces .env)
+        Check logs:
+            - kubectl logs my-api-c494d79c6-l829j
 
-step 3: deploy service
-    - From deployments/workloads, select expose service
-    - select port mapping: target port: 5000
+    step 3: deploy service
+        - From deployments/workloads, select expose service
+        - select port mapping: target port: 5000
 
-Step 4: test the application:
-    - http://104.197.19.10:5000/api/issues
+    Step 4: test the application:
+        - http://104.197.19.10:5000/api/issues
 
-2. Manual deployment using "kubectl apply"
+Option 2. Manual deployment using GCP SDK tool
     Step 1: copy the yaml file from previous step
     Step 2: use "kubectl apply" in GCP SDK command window
 
-3. Auto deployment trigger
+Option 3. Auto deployment trigger
     Step 1: in workloads, click the my-api deployment
     Step 2: in actions menu, choose automated deployment
     Step 3: you can find the trigger in Cloud Build, and run the trigger
 
+Option 4: using Kustomize for package management:
 
-
-Package management:
 Use Kustomize to generate deployment-dev.yaml
-    Step 1: create a kustomize build folder: kustomizebuild
-    Step 2: in google cloud SDK run : (you can get the string from "connect to cluster" in the cluster console )
-             gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project nimble-charmer-336120
-    Step 3: generate cloudbuild.yaml
-            kubectl kustomize ./kustomizebuild/overlays/dev > deployment-dev.yaml
+    Step 1: create a kustomize build folder, and add files
+            - in this example, the folder name is "kustomizebuild"
+    Step 2 (optional): test the build folder by generating target yaml
+            - in google cloud SDK run : (you can get the string from "connect to cluster" in the cluster console )
+            - gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project nimble-charmer-336120kubectl kustomize ./kustomizebuild/overlays/dev > deployment-dev.yaml
+    Step 3: Build Kustomize image for the tool itself
+            1. In parent folder, run:
+                git clone https://github.com/GoogleCloudPlatform/cloud-builders-community
+            2. run: cd cloud-builders-community/kustomize
+            3. run: gcloud builds submit --config cloudbuild.yaml .
+            After the execution, you can find the image in Container Registery
+    Step 4: create clouddeploy.yaml 
+            - copied from github site: https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/kustomize)
+    Step 4: create an Auto deployment trigger (ref to option 3)
+            - use the clouddeploy.yaml`
