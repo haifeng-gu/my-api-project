@@ -5,4 +5,6 @@ steps:
   args: [ 'push', 'gcr.io/nimble-charmer-336120/my-api-project' ]
 - id: depoly
   name: 'gcr.io/$PROJECT_ID/kustomize'
-  args: [ 'build', 'overlays/dev' ]
+  args: [ 'build', 'kustomizebuild/overlays/dev' ]
+  env:
+    - 'APPLY=true'
