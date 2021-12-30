@@ -80,6 +80,6 @@ spec:
         # [START cloud_sql_proxy_k8s_volume_secret]
     volumes:
     - name: mydbsa-secret
-        secret:
-          secretName: mydbsa-secret
+      secret:
+        secretName: mydbsa-secret
         # [END cloud_sql_proxy_k8s_volume_secret]
