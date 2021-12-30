@@ -39,5 +39,6 @@ Use Kustomize to generate deployment-dev.yaml
             After the execution, you can find the image in Container Registery
     Step 4: create clouddeploy.yaml 
             - copied from github site: https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/kustomize)
-    Step 4: create an Auto deployment trigger (ref to option 3)
-            - use the clouddeploy.yaml`
+    Step 5: create an Auto deployment trigger (ref to option 3)
+            - use the clouddeploy.yaml
+            - your builder service account will need IAM permissions

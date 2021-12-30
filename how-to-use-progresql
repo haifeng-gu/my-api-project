@@ -1,0 +1,28 @@
+How to set up progresql db
+Step 1: set up progresql db instance in GCP
+    - check "public IP" (this is needed for cloud sql proxy)
+    - in IAM, grant "Cloud SQL admin, cloud sql client" to the user
+Step 2: set up DB client in local PC
+    Option 1: pgAdmin
+        -  install pgAdmin in local PC
+        -  goto https://whatismyipaddress.com/ to get the IP adress of the PC
+        -  goto cloud sql instance in GCP console, add the IP into "authorized networks"
+        -  open pgAdmin and copy the 
+    Option 2: install cloud proxy in local PC (tested but failed. probably because of firewall)
+    Option 3: use GCP SDK in local PC (tested but failed. probably because of firewall)
+        - set PATH=C:\Users\T829324\AppData\Local\Programs\pgAdmin 4\v6\runtime;%PATH%
+        - gcloud sql connect mypostgresql --user=postgres --quiet
+
+How to set up for GKE connection
+Step 1: create DB secret
+     - kubectl create secret generic my-db-secret --from-literal=username=postgres --from-literal=password=password --from-literal=database=mydb 
+     Once created, you can view the objects in the Configuration section of the Google Kubernetes Engine page in the Cloud Console.  
+Step 2: create service account and its secret
+    - go to IAM, create service account: mydbsa.  Add role: Cloud SQL admin, edit, client
+    - create a key for the service account and download the key json into the local "downloads" folder
+        in GCP SDK, in "downloads" folder run: 
+        gcloud iam service-accounts keys create my-db-sa-key.json --iam-account=mydbsa@nimble-charmer-336120.iam.gserviceaccount.com   
+    - Turn your service account key into a k8s Secret: 
+            run: create secret generic mydbsa-secret --from-file=nimble-charmer-336120-ee75c130958d.json=my-db-sa-key.json
+            you can see the secret in gke cluster ->configuration
+    
