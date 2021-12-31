@@ -29,21 +29,26 @@ else{
         password: process.env.DB_PASS,
         port: process.env.DB_PORT,
       })
-      console.log("Pool is created");
+      console.log("The Pool is created");
 }
 
 
 async function getData(){
-    console.log("Start getting data");
-    const client = await pool.connect();
-    const result = await client.query({
-    text: 'SELECT issuetype FROM public."IssueType";',
-    })
+   try{
+        console.log("Start pool.connect()");
+        const client = await pool.connect();
+        console.log("Start client.query()");
+            const result = await client.query({
+        text: 'SELECT issuetype FROM public."IssueType";',
+        })
 
-    await client.end();
-    console.log(result.rows);
-
-    return result.rows;
+        console.log(result.rows);
+        await client.end();
+        return result.rows;
+    } catch (ex) {
+        console.log(ex);
+        return(ex);
+    }
 }
 
 module.exports = {
@@ -63,4 +68,3 @@ module.exports = {
 //   console.log(err, res)
 //   client.end()
 // })
-
