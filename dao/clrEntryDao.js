@@ -1,4 +1,4 @@
-const dbConnection = require("../dbConnection");
+const dbConnection = require("./mysqlDbConnection");
 
 
 module.exports = class ClrEntryDao {
