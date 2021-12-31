@@ -25,4 +25,9 @@ Step 2: create service account and its secret
     - Turn your service account key into a k8s Secret: 
             run: create secret generic mydbsa-secret --from-file=nimble-charmer-336120-ee75c130958d.json=my-db-sa-key.json
             you can see the secret in gke cluster ->configuration
+Step 3: Running the Cloud SQL Auth proxy as a sidecar
+    - please refer to: https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
+    - the configuration is in KustomizeBuild/base/deployment.yaml
+    - please make sure the gke node memory > 16G
+
     

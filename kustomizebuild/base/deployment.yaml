@@ -24,6 +24,12 @@ spec:
         imagePullPolicy: Always 
         name: my-api-project-sha256-1
         env:
+        - name: API_SERVER_PORT
+          value: 5000
+        - name: DB_HOST
+          value: 34.71.229.195
+        - name: DB_PORT
+          value: 5432
         - name: DB_USER
           valueFrom:
             secretKeyRef:

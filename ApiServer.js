@@ -1,10 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
 const webapp = express();
-const port = 5000;
+const pgDao = require("./dao/pgDbConnection");
+
+//const port = 5000;
+const port = process.env.API_SERVER_PORT;
 
 webapp.use(bodyParser.urlencoded({ extended: false }));
 webapp.use(bodyParser.json());
@@ -88,6 +92,11 @@ webapp.get('/api/issues/:id', async (req, res) => {
 webapp.get('/api/issues', async (req, res) => {
     console.log(JSON.stringify(issueData));
     res.send(JSON.stringify(issueData));
+});
+
+webapp.get('/api/issueTypes', async (req, res) => {
+    let issueTypes = await pgDao.getData();
+    res.send(JSON.stringify(issueTypes));
 });
 
 webapp.delete('/api/issues/:id', async (req, res) => {
