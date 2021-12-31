@@ -35,7 +35,7 @@ else{
 
 async function getData(){
    try{
-        console.log("Start pool.connect()");
+        console.log("Start pool.connect() 1");
         const client = await pool.connect();
         console.log("Start client.query()");
             const result = await client.query({
@@ -46,7 +46,8 @@ async function getData(){
         await client.end();
         return result.rows;
     } catch (ex) {
-        console.log(ex);
+        console.log("error");
+        console.log("" + ex);
         return(ex);
     }
 }
