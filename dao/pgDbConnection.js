@@ -21,6 +21,7 @@ if (envName === 'local'){
       })
 }
 else{
+    console.log("Start creating pool for non-local env");
     pool = new Pool({
         user: process.env.DB_USER,
         host: process.env.DB_HOST,
@@ -28,10 +29,12 @@ else{
         password: process.env.DB_PASS,
         port: process.env.DB_PORT,
       })
+      console.log("Pool is created");
 }
 
 
 async function getData(){
+    console.log("Start getting data");
     const client = await pool.connect();
     const result = await client.query({
     text: 'SELECT issuetype FROM public."IssueType";',

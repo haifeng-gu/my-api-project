@@ -24,6 +24,8 @@ spec:
         imagePullPolicy: Always 
         name: my-api-project-sha256-1
         env:
+        - name: ENV_NAME
+          value: "Development"
         - name: API_SERVER_PORT
           value: "5000"
         - name: DB_HOST
