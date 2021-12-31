@@ -29,7 +29,7 @@ spec:
         - name: API_SERVER_PORT
           value: "5000"
         - name: DB_HOST
-          value: "34.71.229.195"
+          value: "127.0.0.1"
         - name: DB_PORT
           value: "5432"
         - name: DB_USER
