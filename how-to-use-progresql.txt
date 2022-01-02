@@ -16,7 +16,8 @@ Step 2: set up DB client in local PC
 How to set up for GKE connection
 Step 1: create DB secret
      - kubectl create secret generic my-db-secret --from-literal=username=postgres --from-literal=password=password --from-literal=database=mydb 
-     Once created, you can view the objects in the Configuration section of the Google Kubernetes Engine page in the Cloud Console.  
+     Once created, you can view the objects in the Configuration section of the Google Kubernetes Engine page in the Cloud Console.
+
 Step 2: create service account and its secret
     - go to IAM, create service account: mydbsa.  Add role: Cloud SQL admin, edit, client
     - create a key for the service account and download the key json into the local "downloads" folder
@@ -25,9 +26,19 @@ Step 2: create service account and its secret
     - Turn your service account key into a k8s Secret: 
             run: create secret generic mydbsa-secret --from-file=nimble-charmer-336120-ee75c130958d.json=my-db-sa-key.json
             you can see the secret in gke cluster ->configuration
-Step 3: Running the Cloud SQL Auth proxy as a sidecar
+            
+Step 3: deploy the Cloud SQL Auth proxy as a sidecar
     - please refer to: https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
-    - the configuration is in KustomizeBuild/base/deployment.yaml
+    - the configuration in this sample project is in KustomizeBuild/base/deployment.yaml
     - please make sure the gke node memory > 16G
+    - Because of the pg proxy in the same container, please use 127.0.0.1 as the pg host name
+    - Run build and deployment trigger to redeploy the application
+    
+Step 4: run the application
+    - go to workloads/deployment, click the public link, e.g: http://104.197.19.10:5000
+    - use the following link:    http://104.197.19.10:5000/api/issueTypes
+    - the following return is displayed:
+        [{"issuetype":"Critical"},{"issuetype":"High"},{"issuetype":"Low"}]
+
 
     

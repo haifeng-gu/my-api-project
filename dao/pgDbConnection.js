@@ -11,42 +11,28 @@ const { Pool, Client } = require('pg')
 var pool;
 const envName = process.env.ENV_NAME;
 console.log("ENV_NAME = " + envName);
-if (envName === 'local'){
-    pool = new Pool({
-        user: process.env.DB_USER,
-        host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
-        password: process.env.DB_PASS,
-        port: process.env.DB_PORT,
-      })
-}
-else{
-    console.log("Start creating pool for non-local env");
-    pool = new Pool({
-        user: process.env.DB_USER,
-        host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
-        password: process.env.DB_PASS,
-        port: process.env.DB_PORT,
-      })
-      console.log("The Pool is created");
-}
-
+pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+})
+console.log("The Pool is created");
 
 async function getData(){
    try{
-        console.log("Start pool.connect() 1");
-        const client = await pool.connect();
-        console.log("Start client.query()");
-            const result = await client.query({
-        text: 'SELECT issuetype FROM public."IssueType";',
-        })
-
+        console.log("Start pool.query()");
+        // const client = await pool.connect();
+        // console.log("Start client.query()");
+        const result = await pool.query({
+            text: 'SELECT issuetype FROM public."IssueType";',
+        });
         console.log(result.rows);
-        await client.end();
+        //await client.end();
         return result.rows;
     } catch (ex) {
-        console.log("error");
+        console.log("getData() error");
         console.log("" + ex);
         return(ex);
     }
